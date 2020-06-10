@@ -29,7 +29,7 @@ const sessionConfig = {
 };
 
 const userRouter = require("../users/user-router.js");
-const authRouter = require("../auth/auth-routher.js");
+const authRouter = require("../auth/auth-router.js");
 
 server.use(helmet());
 server.use(express.json());

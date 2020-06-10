@@ -1,15 +1,15 @@
 const Users = require('./user-model.js')
 
-const router = express.Router()
+const router = require('express').Router();
+const restricted = require("../auth/restricted-middleware.js");
 
-
-router.get('/', needLogin, async (req, res) => {
+router.get('/', restricted, async (req, res) => {
     const found = await Users.find()
     try {
         if (found) {
             res.status(200).json(found)
         } else {
-            res.status(401).json('No Users to Display')
+            res.status(401).json('No Users')
         }
     }
     catch (error) {
