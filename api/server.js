@@ -3,7 +3,6 @@ const session = require('express-session')
 const knexSessionStore = require('connect-session-knex')(session);
 const helmet = require("helmet");
 const cors = require("cors");
-const userRouter = require('../users/user-router.js')
 
 const server = express()
 
@@ -27,7 +26,10 @@ const sessionConfig = {
             clearInterval: 60000
         }
     )
-}
+};
+
+const userRouter = require("../users/user-router.js");
+const authRouter = require("../auth/auth-routher.js");
 
 server.use(helmet());
 server.use(express.json());
@@ -35,7 +37,8 @@ server.use(cors());
 //Use Session
 server.use(session(sessionConfig));
 
-server.use('/api/users', userRouter)
+server.use('/api/users', userRouter);
+server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {
     res.send('Server is Running...');
